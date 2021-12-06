@@ -31,15 +31,6 @@ describe("Bank Accounts API", function () {
     });
   });
 
-  context("GET /bankAccounts", function () {
-    it("gets a list of bank accounts for user", function () {
-      const { id: userId } = ctx.authenticatedUser!;
-      cy.request("GET", `${apiBankAccounts}`).then((response) => {
-        expect(response.status).to.eq(200);
-        expect(response.body.results[0].userId).to.eq(userId);
-      });
-    });
-  });
 
   context("GET /bankAccounts/:bankAccountId", function () {
     it("gets a bank account", function () {

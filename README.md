@@ -100,6 +100,7 @@ yarn cypress:open
 
 > 🚩 **Note**
 >
+> Node 17.0.1 had an error for me `--openssl-legacy-provider is not allowed in NODE_OPTIONS` if you run into this error use Node version 16.
 > If you have changed the default ports, then you need to update Cypress configuration file (`cypress.json`) locally.
 > There are three properties that you need to update in `cypress.json`: `baseUrl`, `apiUrl`, and `url`.
 > The port number in `baseUrl` corresponds to `PORT` variable in `.env` file. Similarly, the port number in `apiUrl` and `url` correspond to `REACT_APP_BACKEND_PORT`.

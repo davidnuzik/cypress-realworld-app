@@ -5,7 +5,7 @@ describe("User Settings", function () {
   beforeEach(function () {
     cy.task("db:seed");
 
-    cy.intercept("PATCH", "/users/*").as("updateUser");
+    cy.intercept("PATCH", "/updateUsers/*").as("updateUser");
     cy.intercept("GET", "/notifications*").as("getNotifications");
 
     cy.database("find", "users").then((user: User) => {
@@ -45,12 +45,12 @@ describe("User Settings", function () {
       .should("be.visible")
       .and("contain", "Must contain a valid email address");
 
-    cy.getBySelLike("phoneNumber-input").type("abc").clear().blur();
+    cy.getBySelLike("phone-input").type("abc").clear().blur();
     cy.get("#user-settings-phoneNumber-input-helper-text")
       .should("be.visible")
       .and("contain", "Enter a phone number");
 
-    cy.getBySelLike("phoneNumber-input").type("615-555-").blur();
+    cy.getBySelLike("phone-input").type("615-555-").blur();
     cy.get("#user-settings-phoneNumber-input-helper-text")
       .should("be.visible")
       .and("contain", "Phone number is not valid");
@@ -63,12 +63,12 @@ describe("User Settings", function () {
     cy.getBySelLike("firstName").clear().type("New First Name");
     cy.getBySelLike("lastName").clear().type("New Last Name");
     cy.getBySelLike("email").clear().type("email@email.com");
-    cy.getBySelLike("phoneNumber-input").clear().type("6155551212").blur();
+    cy.getBySelLike("phone-input").clear().type("6155551212").blur();
 
     cy.getBySelLike("submit").should("not.be.disabled");
     cy.getBySelLike("submit").click();
 
-    cy.wait("@updateUser").its("response.statusCode").should("equal", 204);
+    cy.wait("@updateUser").its("response.statusCode").should("equal", 200);
 
     if (isMobile()) {
       cy.getBySel("sidenav-toggle").click();
